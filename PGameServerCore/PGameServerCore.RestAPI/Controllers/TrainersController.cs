@@ -24,31 +24,41 @@ namespace PGameServerCore.RestAPI.Controllers
 
         // GET: api/trainers
         [HttpGet()]
-        public IEnumerable<Trainer> GetTrainers()
+        public IActionResult GetTrainers()
         {
             var trainersFromRepo = _gameRepository.GetTrainers();
 
-            return trainersFromRepo;
+            // TODO: MAP
+
+            return Ok(trainersFromRepo);
         }
 
-        //// GET: api/Trainers/5
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetTrainer([FromRoute] Guid id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // GET: api/Trainers/5
+        [HttpGet("{id}", Name = "GetTrainer")]
+        public async Task<IActionResult> GetTrainer([FromRoute] Guid id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    var trainer = await _context.Trainer.SingleOrDefaultAsync(m => m.Id == id);
+            var trainerFromRepo = _gameRepository.GetTrainer(id);
 
-        //    if (trainer == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (trainerFromRepo == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(trainer);
-        //}
+            // TODO: MAP
+
+            return Ok(trainerFromRepo);
+        }
+
+        [HttpPost]
+        public IActionResult CreateTrainer([FromBody] TrainerForCreationDto trainer)
+        {
+
+        }
 
         //// PUT: api/Trainers/5
         //[HttpPut("{id}")]

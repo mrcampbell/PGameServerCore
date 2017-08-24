@@ -10,11 +10,11 @@ namespace PGameServerCore.Shared.Entities
         public string Username { get; set; }
 
         // for referencing login/actual user data
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        //public Guid UserId { get; set; }
+        //public User User { get; set; }
 
-        public int AffinityId { get; set; }
-        public int Level { get; set; }
+        //public int AffinityId { get; set; }
+        //public int Level { get; set; }
 
         public ICollection<Pokemon> Pokemon
             = new List<Pokemon>();
