@@ -34,7 +34,7 @@ namespace PGameServerCore.RestAPI.Data
                             EV_SPEC_ATK = 5,
                             EV_SPEC_DEF = 22,
                             EV_SPEED = 100,
-                            IV_ATK = 15,
+                            IV_ATK = 14,
                             IV_DEF = 15,
                             IV_HP = 15,
                             IV_SPEC_ATK = 15,
