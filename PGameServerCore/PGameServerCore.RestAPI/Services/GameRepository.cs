@@ -41,12 +41,12 @@ namespace PGameServerCore.RestAPI.Services
             _context.Trainer.Remove(trainer);
         }
 
-        public IEnumerable<Pokemon> GetPokemonForTrainer(Guid trainerId)
+        public IEnumerable<Pokemon> GetPokemonPluralForTrainer(Guid trainerId)
         {
             return _context.Pokemon.Where(p => p.TrainerId == trainerId);
         }
 
-        public Pokemon GetPokemonForTrainer(Guid trainerId, Guid pokemonId)
+        public Pokemon GetPokemonSingularForTrainer(Guid trainerId, Guid pokemonId)
         {
             return _context.Pokemon.Where(p => p.TrainerId == trainerId && p.Id == pokemonId).FirstOrDefault();
         }
@@ -92,5 +92,7 @@ namespace PGameServerCore.RestAPI.Services
         {
             // not implemented yet..
         }
+
+
     }
 }

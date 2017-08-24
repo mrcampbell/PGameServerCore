@@ -16,7 +16,7 @@ namespace PGameServerCore.Shared.Entities
         //public int AffinityId { get; set; }
         //public int Level { get; set; }
 
-        public ICollection<Pokemon> Pokemon
+        public ICollection<Pokemon> Pokemon { get; set; }
             = new List<Pokemon>();
     }
 }

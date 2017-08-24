@@ -23,40 +23,44 @@ namespace PGameServerCore.RestAPI.Controllers
             _gameRepository = gameRepository;
         }
 
-        // GET: api/Pokemon
+        // GET: api/v1/trainers/{trainerId}/pokemon
         [HttpGet]
-        public IActionResult GetPokemonForTrainer(Guid trainerId)
+        public IActionResult GetPluralPokemonForTrainer(Guid trainerId)
         {
             if (!_gameRepository.TrainerExists(trainerId))
             {
                 return NotFound();
             }
 
-            var pokemonForTrainerFromRepo = _gameRepository.GetPokemonForTrainer(trainerId);
+            var pokemonForTrainerFromRepo = _gameRepository.GetPokemonPluralForTrainer(trainerId);
 
             var pokemonForTrainer = Mapper.Map<IEnumerable<PokemonDto>>(pokemonForTrainerFromRepo);
 
             return Ok(pokemonForTrainer);
         }
 
-        //// GET: api/Pokemon/5
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetPokemon([FromRoute] Guid id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
 
-        //    var pokemon = await _context.Pokemon.SingleOrDefaultAsync(m => m.Id == id);
+        // GET: api/v1/trainers/{trainerId}/pokemon
+        [HttpGet("{id}")]
+        public IActionResult GetSingularPokemonForTrainer(Guid trainerId, Guid id)
+        {
+            if (!_gameRepository.TrainerExists(trainerId))
+            {
+                return NotFound();
+            }
 
-        //    if (pokemon == null)
-        //    {
-        //        return NotFound();
-        //    }
 
-        //    return Ok(pokemon);
-        //}
+            var pokemonForTrainerFromRepo = _gameRepository.GetPokemonSingularForTrainer(trainerId, id);
+
+            if (pokemonForTrainerFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var pokemonForTrainer = Mapper.Map<PokemonDto>(pokemonForTrainerFromRepo);
+
+            return Ok(pokemonForTrainer);
+        }
 
         //// PUT: api/Pokemon/5
         //[HttpPut("{id}")]

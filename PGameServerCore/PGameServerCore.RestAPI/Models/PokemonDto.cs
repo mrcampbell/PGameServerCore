@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PGameServerCore.Shared.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace PGameServerCore.RestAPI.Models
         public string Name { get; set; }
 
         public Guid TrainerId { get; set; }
-        public Guid Trainer { get; set; }
+        public Trainer Trainer { get; set; }
 
         public int TotalEV { get; set; }
         public int TotalIV { get; set; }

@@ -11,9 +11,10 @@ using System;
 namespace PGameServerCore.RestAPI.Migrations
 {
     [DbContext(typeof(GameContext))]
-    partial class GameContextModelSnapshot : ModelSnapshot
+    [Migration("20170824055344_updated_pokemon_annotations")]
+    partial class updated_pokemon_annotations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,11 +56,11 @@ namespace PGameServerCore.RestAPI.Migrations
                         .IsRequired()
                         .HasMaxLength(30);
 
+                    b.Property<Guid>("Trainer");
+
                     b.Property<Guid>("TrainerId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TrainerId");
 
                     b.ToTable("Pokemon");
                 });
@@ -74,14 +75,6 @@ namespace PGameServerCore.RestAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Trainer");
-                });
-
-            modelBuilder.Entity("PGameServerCore.Shared.Entities.Pokemon", b =>
-                {
-                    b.HasOne("PGameServerCore.Shared.Entities.Trainer", "Trainer")
-                        .WithMany("Pokemon")
-                        .HasForeignKey("TrainerId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

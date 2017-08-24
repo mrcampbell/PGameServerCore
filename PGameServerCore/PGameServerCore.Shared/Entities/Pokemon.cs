@@ -21,7 +21,7 @@ namespace PGameServerCore.Shared.Entities
         public Guid TrainerId { get; set; }
 
         [ForeignKey("TrainerId")]
-        public Guid Trainer { get; set; }
+        public Trainer Trainer { get; set; }
 
         public Int16 EV_HP { get; set; }
         public Int16 EV_ATK { get; set; }

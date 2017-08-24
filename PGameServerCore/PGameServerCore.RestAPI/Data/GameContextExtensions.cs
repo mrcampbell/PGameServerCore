@@ -12,6 +12,7 @@ namespace PGameServerCore.RestAPI.Data
         public static void EnsureSeedDataForContext(this GameContext context)
         {
             context.Trainer.RemoveRange(context.Trainer);
+            context.Pokemon.RemoveRange(context.Pokemon);
             context.SaveChanges();
 
             var trainers = new List<Trainer>()
@@ -43,7 +44,7 @@ namespace PGameServerCore.RestAPI.Data
                         new Pokemon()
                         {
                             Id = new Guid("a3749477-f823-4124-aa4a-fc9ad5e79cd6"),
-                            BreedNum = 150,
+                            BreedNum = 7,
                             Name = "Charizard",
                             EV_HP = 1000,
                             EV_ATK = 1213,
@@ -63,12 +64,54 @@ namespace PGameServerCore.RestAPI.Data
                 new Trainer()
                 {
                     Id = new Guid("76053df4-6687-4353-8937-b45556748abe"),
-                    Username = "Ash"
+                    Username = "Ash",
+                     Pokemon = new List<Pokemon>()
+                    {
+                        new Pokemon()
+                        {
+                            Id = new Guid("447eb762-95e9-4c31-95e1-b20053fbe215"),
+                            BreedNum = 25,
+                            Name = "Pikachu",
+                            EV_HP = 99,
+                            EV_ATK = 1,
+                            EV_DEF = 23,
+                            EV_SPEC_ATK = 5,
+                            EV_SPEC_DEF = 22,
+                            EV_SPEED = 100,
+                            IV_ATK = 15,
+                            IV_DEF = 15,
+                            IV_HP = 15,
+                            IV_SPEC_ATK = 15,
+                            IV_SPEC_DEF = 15,
+                            IV_SPEED = 15,
+                        }
+                     }
                 },
                 new Trainer()
                 {
                     Id = new Guid("412c3012-d891-4f5e-9613-ff7aa63e6bb3"),
-                    Username = "Xeioneir"
+                    Username = "Xeioneir",
+                      Pokemon = new List<Pokemon>()
+                    {
+                        new Pokemon()
+                        {
+                            Id = new Guid("9edf91ee-ab77-4521-a402-5f188bc0c577"),
+                            BreedNum = 0,
+                            Name = "MissingNo",
+                            EV_HP = 99,
+                            EV_ATK = 1,
+                            EV_DEF = 23,
+                            EV_SPEC_ATK = 5,
+                            EV_SPEC_DEF = 22,
+                            EV_SPEED = 100,
+                            IV_ATK = 15,
+                            IV_DEF = 15,
+                            IV_HP = 15,
+                            IV_SPEC_ATK = 15,
+                            IV_SPEC_DEF = 15,
+                            IV_SPEED = 15,
+                        }
+                     }
                 }
             };
 

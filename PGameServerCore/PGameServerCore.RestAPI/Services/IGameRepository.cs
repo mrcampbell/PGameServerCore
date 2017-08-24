@@ -20,8 +20,8 @@ namespace PGameServerCore.RestAPI.Services
         bool TrainerExists(Guid trainerId);
 
         // Pokemon Exclusive Functions
-        IEnumerable<Pokemon> GetPokemonForTrainer(Guid trainerId);
-        Pokemon GetPokemonForTrainer(Guid trainerId, Guid pokemonId);
+        IEnumerable<Pokemon> GetPokemonPluralForTrainer(Guid trainerId);
+        Pokemon GetPokemonSingularForTrainer(Guid trainerId, Guid pokemonId);
         void AddPokemonForTrainer(Guid trainerId, Pokemon pokemon);
         void UpdatePokemonForTrainer(Pokemon pokemon);
         void DeletePokemon(Pokemon pokemon);
