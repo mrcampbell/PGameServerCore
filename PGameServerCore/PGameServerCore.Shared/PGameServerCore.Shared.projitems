@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>594e7a3b-b04a-4180-9fc0-939682d67aba</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>PGameServerCore.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Pokemon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Trainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\User.cs" />
+  </ItemGroup>
+</Project>
