@@ -11,9 +11,10 @@ using System;
 namespace PGameServerCore.RestAPI.Migrations
 {
     [DbContext(typeof(GameContext))]
-    partial class GameContextModelSnapshot : ModelSnapshot
+    [Migration("20170824045101_create_user_update_poke_and_trnr")]
+    partial class create_user_update_poke_and_trnr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

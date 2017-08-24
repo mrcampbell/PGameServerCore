@@ -27,101 +27,103 @@ namespace PGameServerCore.RestAPI.Controllers
         public IEnumerable<Trainer> GetTrainers()
         {
             var trainersFromRepo = _gameRepository.GetTrainers();
+
+            return trainersFromRepo;
         }
 
-        // GET: api/Trainers/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetTrainer([FromRoute] Guid id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// GET: api/Trainers/5
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetTrainer([FromRoute] Guid id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var trainer = await _context.Trainer.SingleOrDefaultAsync(m => m.Id == id);
+        //    var trainer = await _context.Trainer.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (trainer == null)
-            {
-                return NotFound();
-            }
+        //    if (trainer == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(trainer);
-        }
+        //    return Ok(trainer);
+        //}
 
-        // PUT: api/Trainers/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTrainer([FromRoute] Guid id, [FromBody] Trainer trainer)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/Trainers/5
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutTrainer([FromRoute] Guid id, [FromBody] Trainer trainer)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != trainer.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != trainer.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Entry(trainer).State = EntityState.Modified;
+        //    _context.Entry(trainer).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TrainerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!TrainerExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
-        // POST: api/Trainers
-        [HttpPost]
-        public async Task<IActionResult> PostTrainer([FromBody] Trainer trainer)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// POST: api/Trainers
+        //[HttpPost]
+        //public async Task<IActionResult> PostTrainer([FromBody] Trainer trainer)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            _context.Trainer.Add(trainer);
-            await _context.SaveChangesAsync();
+        //    _context.Trainer.Add(trainer);
+        //    await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTrainer", new { id = trainer.Id }, trainer);
-        }
+        //    return CreatedAtAction("GetTrainer", new { id = trainer.Id }, trainer);
+        //}
 
-        // DELETE: api/Trainers/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTrainer([FromRoute] Guid id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// DELETE: api/Trainers/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteTrainer([FromRoute] Guid id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var trainer = await _context.Trainer.SingleOrDefaultAsync(m => m.Id == id);
-            if (trainer == null)
-            {
-                return NotFound();
-            }
+        //    var trainer = await _context.Trainer.SingleOrDefaultAsync(m => m.Id == id);
+        //    if (trainer == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.Trainer.Remove(trainer);
-            await _context.SaveChangesAsync();
+        //    _context.Trainer.Remove(trainer);
+        //    await _context.SaveChangesAsync();
 
-            return Ok(trainer);
-        }
+        //    return Ok(trainer);
+        //}
 
-        private bool TrainerExists(Guid id)
-        {
-            return _context.Trainer.Any(e => e.Id == id);
-        }
+        //private bool TrainerExists(Guid id)
+        //{
+        //    return _context.Trainer.Any(e => e.Id == id);
+        //}
     }
 }

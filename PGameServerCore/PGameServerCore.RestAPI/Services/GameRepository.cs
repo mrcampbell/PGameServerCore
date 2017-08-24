@@ -16,6 +16,11 @@ namespace PGameServerCore.RestAPI.Services
             _context = context;
         }
 
+        public void AddPokemonForTrainer(Guid trainerId, Pokemon pokemon)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddTrainer(Trainer trainer)
         {
             if (trainer.Id == null || trainer.Id == Guid.Empty)
@@ -26,9 +31,24 @@ namespace PGameServerCore.RestAPI.Services
             _context.Trainer.Add(trainer);
         }
 
+        public void DeletePokemon(Pokemon pokemon)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteTrainer(Trainer trainer)
         {
             _context.Trainer.Remove(trainer);
+        }
+
+        public IEnumerable<Pokemon> GetPokemonForTrainer(Guid trainerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Pokemon GetPokemonForTrainer(Guid trainerId, Guid pokemonId)
+        {
+            throw new NotImplementedException();
         }
 
         public Trainer GetTrainer(Guid trainerId)
@@ -48,6 +68,11 @@ namespace PGameServerCore.RestAPI.Services
                 .OrderBy(t => t.Username);
         }
 
+        public bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool TrainerExists(Trainer trainer)
         {
             return _context.Trainer.Any(t => t.Id == trainer.Id);
@@ -56,6 +81,11 @@ namespace PGameServerCore.RestAPI.Services
         public bool TrainerExists(Guid trainerId)
         {
             return _context.Trainer.Any(t => t.Id == trainerId);
+        }
+
+        public void UpdatePokemonForTrainer(Pokemon pokemon)
+        {
+            throw new NotImplementedException();
         }
 
         public void UpdateTrainer(Trainer trainer)
