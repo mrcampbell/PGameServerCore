@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PGameServerCore.RestAPI.Models;
 using PGameServerCore.Shared.Entities;
 using PGameServerCore.RestAPI.Services;
+using AutoMapper;
 
 namespace PGameServerCore.RestAPI.Controllers
 {
@@ -29,8 +30,9 @@ namespace PGameServerCore.RestAPI.Controllers
             var trainersFromRepo = _gameRepository.GetTrainers();
 
             // TODO: MAP
+            var trainers = Mapper.Map<IEnumerable<TrainerDto>>(trainersFromRepo);
 
-            return Ok(trainersFromRepo);
+            return Ok(trainers);
         }
 
         // GET: api/Trainers/5
@@ -49,16 +51,16 @@ namespace PGameServerCore.RestAPI.Controllers
                 return NotFound();
             }
 
-            // TODO: MAP
+            var trainer = Mapper.Map<TrainerDto>(trainerFromRepo);
 
-            return Ok(trainerFromRepo);
+            return Ok(trainer);
         }
 
-        [HttpPost]
-        public IActionResult CreateTrainer([FromBody] TrainerForCreationDto trainer)
-        {
+        //[HttpPost]
+        //public IActionResult CreateTrainer([FromBody] TrainerForCreationDto trainer)
+        //{
 
-        }
+        //}
 
         //// PUT: api/Trainers/5
         //[HttpPut("{id}")]

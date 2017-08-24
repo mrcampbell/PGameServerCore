@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using PGameServerCore.RestAPI.Models;
 using PGameServerCore.RestAPI.Services;
 using PGameServerCore.RestAPI.Data;
+using PGameServerCore.Shared.Entities;
 
 namespace PGameServerCore.RestAPI
 {
@@ -48,6 +49,25 @@ namespace PGameServerCore.RestAPI
 
             gameContext.EnsureSeedDataForContext();
 
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+            cfg.CreateMap<Trainer, TrainerDto>();
+            cfg.CreateMap<Pokemon, PokemonDto>()
+            .ForMember(dest => dest.TotalIV, 
+            opt => opt.MapFrom(
+                src => 
+                src.IV_HP + 
+                src.IV_ATK + 
+                src.IV_DEF + 
+                src.IV_SPEC_ATK +
+                src.IV_SPEC_DEF + 
+                src.IV_SPEED));
+
+                cfg.CreateMap<TrainerForCreationDto, Trainer>();
+                cfg.CreateMap<PokemonForCreationDto, Pokemon>();
+            });
+
+            
             app.UseMvc();
         }
     }

@@ -10,6 +10,5 @@ namespace PGameServerCore.RestAPI.Models
         public Guid Id { get; set; }
         public string Username { get; set; }
         public int DaysSinceStart { get; set; }
-        
     }
 }

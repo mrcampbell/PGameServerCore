@@ -43,12 +43,12 @@ namespace PGameServerCore.RestAPI.Services
 
         public IEnumerable<Pokemon> GetPokemonForTrainer(Guid trainerId)
         {
-            throw new NotImplementedException();
+            return _context.Pokemon.Where(p => p.TrainerId == trainerId);
         }
 
         public Pokemon GetPokemonForTrainer(Guid trainerId, Guid pokemonId)
         {
-            throw new NotImplementedException();
+            return _context.Pokemon.Where(p => p.TrainerId == trainerId && p.Id == pokemonId).FirstOrDefault();
         }
 
         public Trainer GetTrainer(Guid trainerId)

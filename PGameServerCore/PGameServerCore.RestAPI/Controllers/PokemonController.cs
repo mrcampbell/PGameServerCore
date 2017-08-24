@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PGameServerCore.RestAPI.Models;
 using PGameServerCore.Shared.Entities;
+using PGameServerCore.RestAPI.Services;
+using AutoMapper;
 
 namespace PGameServerCore.RestAPI.Controllers
 {
@@ -14,113 +16,122 @@ namespace PGameServerCore.RestAPI.Controllers
     [Route("api/v1/trainers/{trainerId}/pokemon")]
     public class PokemonController : Controller
     {
-        private readonly GameContext _context;
+        private readonly IGameRepository _gameRepository;
 
-        public PokemonController(GameContext context)
+        public PokemonController(IGameRepository gameRepository)
         {
-            _context = context;
+            _gameRepository = gameRepository;
         }
 
         // GET: api/Pokemon
         [HttpGet]
-        public IEnumerable<Pokemon> GetPokemon()
+        public IActionResult GetPokemonForTrainer(Guid trainerId)
         {
-            return _context.Pokemon;
-        }
-
-        // GET: api/Pokemon/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetPokemon([FromRoute] Guid id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var pokemon = await _context.Pokemon.SingleOrDefaultAsync(m => m.Id == id);
-
-            if (pokemon == null)
+            if (!_gameRepository.TrainerExists(trainerId))
             {
                 return NotFound();
             }
 
-            return Ok(pokemon);
+            var pokemonForTrainerFromRepo = _gameRepository.GetPokemonForTrainer(trainerId);
+
+            var pokemonForTrainer = Mapper.Map<IEnumerable<PokemonDto>>(pokemonForTrainerFromRepo);
+
+            return Ok(pokemonForTrainer);
         }
 
-        // PUT: api/Pokemon/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPokemon([FromRoute] Guid id, [FromBody] Pokemon pokemon)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// GET: api/Pokemon/5
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetPokemon([FromRoute] Guid id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != pokemon.Id)
-            {
-                return BadRequest();
-            }
+        //    var pokemon = await _context.Pokemon.SingleOrDefaultAsync(m => m.Id == id);
 
-            _context.Entry(pokemon).State = EntityState.Modified;
+        //    if (pokemon == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PokemonExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    return Ok(pokemon);
+        //}
 
-            return NoContent();
-        }
+        //// PUT: api/Pokemon/5
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutPokemon([FromRoute] Guid id, [FromBody] Pokemon pokemon)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-        // POST: api/Pokemon
-        [HttpPost]
-        public async Task<IActionResult> PostPokemon([FromBody] Pokemon pokemon)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //    if (id != pokemon.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Pokemon.Add(pokemon);
-            await _context.SaveChangesAsync();
+        //    _context.Entry(pokemon).State = EntityState.Modified;
 
-            return CreatedAtAction("GetPokemon", new { id = pokemon.Id }, pokemon);
-        }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!PokemonExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-        // DELETE: api/Pokemon/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePokemon([FromRoute] Guid id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //    return NoContent();
+        //}
 
-            var pokemon = await _context.Pokemon.SingleOrDefaultAsync(m => m.Id == id);
-            if (pokemon == null)
-            {
-                return NotFound();
-            }
+        //// POST: api/Pokemon
+        //[HttpPost]
+        //public async Task<IActionResult> PostPokemon([FromBody] Pokemon pokemon)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            _context.Pokemon.Remove(pokemon);
-            await _context.SaveChangesAsync();
+        //    _context.Pokemon.Add(pokemon);
+        //    await _context.SaveChangesAsync();
 
-            return Ok(pokemon);
-        }
+        //    return CreatedAtAction("GetPokemon", new { id = pokemon.Id }, pokemon);
+        //}
 
-        private bool PokemonExists(Guid id)
-        {
-            return _context.Pokemon.Any(e => e.Id == id);
-        }
+        //// DELETE: api/Pokemon/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeletePokemon([FromRoute] Guid id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var pokemon = await _context.Pokemon.SingleOrDefaultAsync(m => m.Id == id);
+        //    if (pokemon == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    _context.Pokemon.Remove(pokemon);
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok(pokemon);
+        //}
+
+        //private bool PokemonExists(Guid id)
+        //{
+        //    return _context.Pokemon.Any(e => e.Id == id);
+        //}
     }
 }
