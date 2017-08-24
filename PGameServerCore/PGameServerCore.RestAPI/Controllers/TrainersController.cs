@@ -12,7 +12,7 @@ using AutoMapper;
 
 namespace PGameServerCore.RestAPI.Controllers
 {
-    [Produces("application/json")]
+    //[Produces("application/json")]
     [Route("api/v1/trainers")]
     public class TrainersController : Controller
     {
@@ -56,11 +56,32 @@ namespace PGameServerCore.RestAPI.Controllers
             return Ok(trainer);
         }
 
-        //[HttpPost]
-        //public IActionResult CreateTrainer([FromBody] TrainerForCreationDto trainer)
-        //{
+        [HttpPost]
+        public IActionResult CreateTrainer([FromBody] TrainerForCreationDto trainer)
+        {
+            if (trainer == null)
+            {
+                return BadRequest();
+            }
 
-        //}
+            if (trainer.Id == null || trainer.Id == Guid.Empty)
+            {
+                trainer.Id = Guid.NewGuid();
+            }
+
+            var trainerEntity = Mapper.Map<Trainer>(trainer);
+
+            _gameRepository.AddTrainer(trainerEntity);
+
+            if(!_gameRepository.Save())
+            {
+                throw new Exception($"Error in saving Trainer: {trainer.UserName}");
+            }
+
+            var trainerToReturn = Mapper.Map<TrainerDto>(trainerEntity);
+
+            return CreatedAtRoute("GetTrainer", new { id = trainerToReturn.Id }, trainerToReturn);
+        }
 
         //// PUT: api/Trainers/5
         //[HttpPut("{id}")]

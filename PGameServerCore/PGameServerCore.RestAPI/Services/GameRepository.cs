@@ -70,7 +70,7 @@ namespace PGameServerCore.RestAPI.Services
 
         public bool Save()
         {
-            throw new NotImplementedException();
+            return _context.SaveChanges() >= 0;
         }
 
         public bool TrainerExists(Trainer trainer)

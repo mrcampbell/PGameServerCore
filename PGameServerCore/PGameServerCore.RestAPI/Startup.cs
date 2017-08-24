@@ -13,6 +13,7 @@ using PGameServerCore.RestAPI.Models;
 using PGameServerCore.RestAPI.Services;
 using PGameServerCore.RestAPI.Data;
 using PGameServerCore.Shared.Entities;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace PGameServerCore.RestAPI
 {
@@ -28,7 +29,11 @@ namespace PGameServerCore.RestAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(setupAction =>
+            {
+                setupAction.ReturnHttpNotAcceptable = true;
+                setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+            });
 
             services.AddDbContext<GameContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("GameContext")));
